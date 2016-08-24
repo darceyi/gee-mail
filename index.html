@@ -1,18 +1,76 @@
 <html>
 	<head>
+		<title>Inbox - GeeMail</title>
 		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" media="screen">
-    <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
-      };
-    </script>
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Courgette|Lobster|Rubik" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
+
+		
+	    <script>
+	      window.onload = function(){
+	        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
+	        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+	        
+
+			/*window.geemails*/
+	        	for (var i = 0; i < 10; i++) {
+	        	html = '<div class="row msg">';
+				html += '<div class="col-md-2">' + window.geemails[i].sender + '</div>';
+				html += '<div class="col-md-4">' + window.geemails[i].subject + '</div>';
+				html += '<div class="col-md-6">' + window.geemails[i].date + '</div>';
+	        	html += '</div>';
+	        	$("#list-message").append(html);
+	        }
+	
+			/*setInterval for new emails and counter*/
+	        function bestFunctionEver () {
+	        	var newMessage = getNewMessage();
+	        	html = '<div class="row msg">';
+				html += '<div class="col-md-2">' + newMessage.sender + '</div>';
+				html += '<div class="col-md-4">' + newMessage.subject + '</div>';
+				html += '<div class="col-md-6">' + newMessage.date + '</div>';
+	        	html += '</div>';
+	        	$("#list-message").append(html);
+
+	        	var count = parseInt($("#badge-count").html());
+	        	count++;
+	        	$("#badge-count").html(count);
+	        }
+
+	         setInterval(bestFunctionEver, 2000);
+  		};
+	    </script>
 	</head>
+	
 	<body>
 		<div class="container" id="main">
-			Build Me!
-		</div>
+
+			<!--gmail header-->
+			<div class="page-header">
+  				<h1>GeeMail <small> <span class="glyphicon glyphicon-envelope"></span></small></h1>
+  				<p class="navbar-right">Signed in as <a href="#" class="navbar-link">Bodhi the Mutt</a></p>
+  			</div>
+  		
+			<!--stacked navbar left-->
+			<div class="container left-nav">
+				<div class="row">
+					<div class="col-md-2 folders">
+						<ul class="nav nav-pills nav-stacked" role="tablist">
+	  						<li role="presentation" class="active"><a href="#">Inbox <span class="badge" id="badge-count">10</span></a></li>
+			 				<li role="presentation"><a href="#">Drafts</a></li>
+			  				<li role="presentation"><a href="#">Sent</a></li>
+			  				<li role="presentation"><a href="#">Spam</a></li>
+							<li role="presentation"><a href="#">Trash</a></li>
+						</ul>
+					</div>
+			
+			<!--messages in nested grid-->
+					<div class="col-md-10" id="list-message">		
+					</div><!--end col-md-10-->
+				</div><!--end row-->
+			</div><!--end nav and msg content container-->
+		</div><!--end body container-->
 	</body>
 </html>
