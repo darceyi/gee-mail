@@ -3,6 +3,7 @@
 		<title>Inbox - GeeMail</title>
 		<script src="js/mail-generator.js"></script>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link href="https://fonts.googleapis.com/css?family=Courgette|Lobster|Rubik" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
@@ -14,17 +15,38 @@
 	        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 	        
 
-			/*window.geemails*/
+	        //onclick styles for .msg
+	        var styles = {
+	        	backgroundColor: "#eee",
+	        	fontWeight: "bold",
+	        }
+
+			// window.geemails
 	        	for (var i = 0; i < 10; i++) {
 	        	html = '<div class="row msg">';
 				html += '<div class="col-md-2">' + window.geemails[i].sender + '</div>';
 				html += '<div class="col-md-4">' + window.geemails[i].subject + '</div>';
 				html += '<div class="col-md-6">' + window.geemails[i].date + '</div>';
 	        	html += '</div>';
+	        	// message body display
+	        	html += '<div class="row content">';
+	        	html += '<div class="col-md-12 msgbody">' + window.geemails[i].body + '</div>';
+	        	html += '</div>';
+	        
 	        	$("#list-message").append(html);
-	        }
+
+	        	$(".msg").on("click", function() {
+	         		$(this).next(".content").toggleClass("content");
+	         		$(".msgbody").css("background", "#eee");
+	         		$(this).css(styles);
+	        	 });
+	        	}
+
+	        //set counter variable
+	        var counter = 10;
+	        $("#badge-count").html(counter);
 	
-			/*setInterval for new emails and counter*/
+			// setInterval for new emails and counter
 	        function bestFunctionEver () {
 	        	var newMessage = getNewMessage();
 	        	html = '<div class="row msg">';
@@ -32,15 +54,25 @@
 				html += '<div class="col-md-4">' + newMessage.subject + '</div>';
 				html += '<div class="col-md-6">' + newMessage.date + '</div>';
 	        	html += '</div>';
+	        	// message body display
+	        	html += '<div class="row content">';
+	        	html += '<div class="col-md-12 msgbody">' + newMessage.body + '</div>';
+	        	html += '</div>';
+
 	        	$("#list-message").append(html);
 
-	        	var count = parseInt($("#badge-count").html());
-	        	count++;
-	        	$("#badge-count").html(count);
+	        	$(".msg").on("click", function() {
+	         		$(this).next(".content").toggleClass("content");
+	         		$(".msgbody").css("background", "#eee");
+	         		$(this).css(styles);
+	        	 });
+
+	        	counter++;
+	        	$("#badge-count").html(counter);
 	        }
 
 	         setInterval(bestFunctionEver, 2000);
-  		};
+  		}
 	    </script>
 	</head>
 	
@@ -58,7 +90,7 @@
 				<div class="row">
 					<div class="col-md-2 folders">
 						<ul class="nav nav-pills nav-stacked" role="tablist">
-	  						<li role="presentation" class="active"><a href="#">Inbox <span class="badge" id="badge-count">10</span></a></li>
+	  						<li role="presentation" class="active"><a href="#">Inbox <span class="badge" id="badge-count"></span></a></li>
 			 				<li role="presentation"><a href="#">Drafts</a></li>
 			  				<li role="presentation"><a href="#">Sent</a></li>
 			  				<li role="presentation"><a href="#">Spam</a></li>

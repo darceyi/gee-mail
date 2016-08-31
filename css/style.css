@@ -28,3 +28,7 @@
 .msg {
 	border-bottom: 1px solid #ddd;
 }
+
+.content {
+	display: none;
+}
