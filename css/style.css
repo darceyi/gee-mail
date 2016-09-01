@@ -30,6 +30,7 @@
 }
 
 /*for toggleClass*/
-.content {
+
+.hide {
 	display: none;
 }

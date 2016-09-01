@@ -20,6 +20,13 @@
 	        	fontWeight: "bold",
 	        }
 
+	        //onclick 
+	        $("#list-message").on("click", ".msg", function() {
+	         		$(this).next().toggleClass("hide");
+	         		$(".msgbody").css("background", "#eee");
+	         		$(this).css(styles);
+	         	});
+
 			// window.geemails
 	        	for (var i = 0; i < 10; i++) {
 	        	html = '<div class="row msg">';
@@ -28,17 +35,11 @@
 				html += '<div class="col-md-6">' + window.geemails[i].date + '</div>';
 	        	html += '</div>';
 	        	// message body display
-	        	html += '<div class="row content">';
+	        	html += '<div class="row hide">';
 	        	html += '<div class="col-md-12 msgbody">' + window.geemails[i].body + '</div>';
 	        	html += '</div>';
 	        
 	        	$("#list-message").append(html);
-
-	        	$(".msg").on("click", function() {
-	         		$(this).next(".content").toggleClass("content");
-	         		$(".msgbody").css("background", "#eee");
-	         		$(this).css(styles);
-	        	 });
 	        	}
 
 	        //set counter variable
@@ -54,17 +55,11 @@
 				html += '<div class="col-md-6">' + newMessage.date + '</div>';
 	        	html += '</div>';
 	        	// message body display
-	        	html += '<div class="row content">';
+	        	html += '<div class="row hide">';
 	        	html += '<div class="col-md-12 msgbody">' + newMessage.body + '</div>';
 	        	html += '</div>';
 
 	        	$("#list-message").append(html);
-
-	        	$(".msg").on("click", function() {
-	         		$(this).next(".content").toggleClass("content");
-	         		$(".msgbody").css("background", "#eee");
-	         		$(this).css(styles);
-	        	 });
 
 	        	counter++;
 	        	$("#badge-count").html(counter);
